@@ -1,9 +1,10 @@
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import { Switch, Theme, ThemeProvider } from '@mui/material';
+import { Container, Theme, ThemeProvider } from '@mui/material';
 import { darkTheme, lightTheme } from './theme';
 import { useEffect, useState } from 'react';
-import Me from './components/Me';
+import CanvasDisplay from './components/Map/Map';
+import GameHeader from './components/Header/GameHeader';
+import MapContainer from './components/Map/MapContainer';
+import Sphere from './components/Sphere';
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>(lightTheme);
@@ -26,12 +27,17 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-        {/* <Switch
-          checked={isDarkMode}
-          onClick={handleSwitchTheme}
-          aria-label='Dark'
-        /> */}
-      <Me />
+      <Container
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between'
+        }}
+      >
+        <GameHeader></GameHeader>
+        <MapContainer></MapContainer>
+        <Sphere />
+      </Container>
     </ThemeProvider>
   );
 }
