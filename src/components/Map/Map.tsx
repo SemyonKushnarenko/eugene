@@ -109,23 +109,32 @@ const Map: FC = () => {
             onPointerMove={setPointerCoords}
         />
         <Button
+            onClick={e => e.stopPropagation()}
+            onPointerDown={e => e.stopPropagation()}
             sx={{
-                bgcolor: mark ? '#6C5DD3' : '#201E1D',
+                bgcolor: '#6C5DD3',
                 position: 'absolute',
                 bottom: 16,
                 right: 16,
                 left: 16,
                 borderRadius: '16px',
                 py: 1.5,
+                zIndex: 15,
                 fontFamily: 'Gilroy',
                 fontWeight: 600,
                 fontSize: '14px',
                 lineHeight: '20px',
                 letterSpacing: 0,
                 color: '#fff',
+                '&:disabled': {
+                    color: '#fff',
+                    bgcolor: '#201E1D',
+                    pointerEvents: 'none',
+                },
                 textTransform: 'none',
             }}
-        >{mark ? 'Поставить метку' : 'Разместите метку на карте' }</Button>
+            disabled={!mark}
+        >{mark ? 'Сравнить метку' : 'Разместите метку на карте' }</Button>
         <Coordinates tap={tapCoords} pointer={pointerCoords} />
     </Box>;
 }

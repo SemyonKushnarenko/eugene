@@ -20,7 +20,7 @@ const CanvasContainer: FC<{
       const [transform, setTransform] = useState({ x: 0, y: 0, scale: 1 });
       const [minScale, setMinScale] = useState(1);
       const [canvasSize, setCanvasSize] = useState({ width, height });
-      const MAX_SCALE = 2;
+      const MAX_SCALE = 0.5;
   
       useEffect(() => {
           function updateMinScale() {
