@@ -1,10 +1,10 @@
 import { Container, Theme, ThemeProvider } from '@mui/material';
 import { darkTheme, lightTheme } from './theme';
 import { useEffect, useState } from 'react';
-import CanvasDisplay from './components/Map/Map';
 import GameHeader from './components/Header/GameHeader';
 import MapContainer from './components/Map/MapContainer';
-import Sphere from './components/Sphere';
+// import Sphere from './components/Sphere';
+import PanoramaV2 from './components/Map/PanoramaV2';
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>(lightTheme);
@@ -34,9 +34,10 @@ export default function App() {
           justifyContent: 'space-between'
         }}
       >
-        <GameHeader></GameHeader>
-        <MapContainer></MapContainer>
-        <Sphere />
+        <GameHeader/>
+        <MapContainer/>
+        {/* <Sphere /> */}
+        <PanoramaV2 />
       </Container>
     </ThemeProvider>
   );

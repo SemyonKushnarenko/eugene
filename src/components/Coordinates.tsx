@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-const Coordinates: FC<{ tap: {x: number, y: number} | null, pointer: {x: number, y: number} | null }> = ({ tap, pointer }) => (
+const Coordinates: FC<{ tap: {x: number, y: number} | null }> = ({ tap }) => (
     <div style={{
         position: 'fixed',
         top: 10,
@@ -14,7 +14,6 @@ const Coordinates: FC<{ tap: {x: number, y: number} | null, pointer: {x: number,
         minWidth: 180,
     }}>
         <div>Tap: {tap ? `${tap.x.toFixed(0)}, ${tap.y.toFixed(0)}` : '--'}</div>
-        <div>Pointer: {pointer ? `${pointer.x.toFixed(0)}, ${pointer.y.toFixed(0)}` : '--'}</div>
     </div>
 );
 

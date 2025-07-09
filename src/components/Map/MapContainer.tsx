@@ -38,7 +38,6 @@ const MapContainer: FC = () => {
                         left: 0,
                         bottom: 0,
                         width: '100vw',
-                        height: '72vh',
                         bgcolor: 'background.paper',
                         boxShadow: 6,
                         zIndex: 10,

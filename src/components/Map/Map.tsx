@@ -1,142 +1,136 @@
-import { FC, useRef, useState, useEffect } from "react";
-import CanvasContainer from "./Canvas/CanvasContainer";
+import { FC, useRef, useState } from "react";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Coordinates from "../Coordinates";
 import { Box, Button } from "@mui/material";
 
+const MAP_IMAGE = "/bg.jpg";
+const MARK_IMAGE = "/icons/mark.svg";
+const MAP_WIDTH = 5140;
+const MAP_HEIGHT = 4676;
+
 const Map: FC = () => {
-    const imgRef = useRef<HTMLImageElement | null>(null);
-    const markImgRef = useRef<HTMLImageElement | null>(null);
-    const lastScaleRef = useRef(1);
-    const [tapCoords, setTapCoords] = useState<{x: number, y: number} | null>(null);
-    const [pointerCoords, setPointerCoords] = useState<{x: number, y: number} | null>(null);
-    const [mark, setMark] = useState<{x: number, y: number} | null>(null);
-    const [pointerDown, setPointerDown] = useState<{x: number, y: number, time: number} | null>(null);
+    const minScale = 1;
+    const maxScale = 3;
+    const [mark, setMark] = useState<{ x: number; y: number } | null>(null);
+    const [pointerCoords, setPointerCoords] = useState<{ x: number; y: number } | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const imageRef = useRef<HTMLImageElement>(null);
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [scale, setScale] = useState(1);
+    const [a, setA] = useState<number[]>([]);
+    const [positionX, setPositionX] = useState(0)
+    const [positionY, setPositionY] = useState(0)
+  
+    function handleChange(event: any) {
+        setScale(event.instance.transformState.scale);
+        setPositionX(event.instance.transformState.positionX);
+        setPositionY(event.instance.transformState.positionY);
+        
+    }
 
-    const draw = (ctx: CanvasRenderingContext2D, frameCount: number, currentScale: number = 1) => {
-        lastScaleRef.current = currentScale;
-        const width = ctx.canvas.width;
-        const height = ctx.canvas.height;
-
-        if (!imgRef.current) {
-            const img = new window.Image();
-            img.src = "/bg.jpg";
-            img.onload = () => {
-                imgRef.current = img;
-                ctx.drawImage(img, 0, 0, width, height);
-            };
-            ctx.clearRect(0, 0, width, height);
-            return;
-        }
-
-        ctx.drawImage(imgRef.current, 0, 0, width, height);
-
-        ctx.save();
-        ctx.strokeStyle = "rgba(116, 100, 100, 0.32)";
-        ctx.lineWidth = 1 / currentScale;
-        const minSquare = 50;
-        const maxSquare = 500;
-        const widthAvail = width;
-        const heightAvail = height;
-        let squareSize = maxSquare;
-        while (squareSize > minSquare && (widthAvail / squareSize < 1 || heightAvail / squareSize < 1)) {
-            squareSize -= 1;
-        }
-        if (squareSize < minSquare) squareSize = minSquare;
-        for (let x = squareSize; x < widthAvail; x += squareSize) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, heightAvail);
-            ctx.stroke();
-        }
-        for (let y = squareSize; y < heightAvail; y += squareSize) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(widthAvail, y);
-            ctx.stroke();
-        }
-        ctx.restore();
-
-        if (mark) {
-            ctx.save();
-            const size = 32 / (currentScale || 1);
-            if (!markImgRef.current) {
-                const img = new window.Image();
-                img.src = '/icons/mark.svg';
-                img.onload = () => {
-                    markImgRef.current = img;
-                    ctx.drawImage(img, mark.x - size / 2, mark.y - size / 2, size, size);
-                };
-            } else {
-                ctx.drawImage(markImgRef.current, mark.x - size / 2, mark.y - size / 2, size, size);
-            }
-            ctx.restore();
-        }
-    };
-
-    const handlePointerDown = (coords: {x: number, y: number}) => {
-        setPointerDown({ ...coords, time: Date.now() });
-    };
-    const handlePointerUp = (coords: {x: number, y: number}) => {
-        if (!pointerDown) return;
-        const dt = Date.now() - pointerDown.time;
-        const dx = coords.x - pointerDown.x;
-        const dy = coords.y - pointerDown.y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dt < 300 && dist < 16) {
-            setTapCoords(coords);
-            setMark(current => {
-                const size = 24 / (lastScaleRef.current || 1);
-                if (current) {
-                    const dx = coords.x - current.x;
-                    const dy = coords.y - current.y;
-                    if (Math.sqrt(dx*dx + dy*dy) <= size / 2) {
-                        return null;
-                    }
-                }
-                return coords;
-            });
-        }
-        setPointerDown(null);
-    };
-
-    return <Box sx={{ width: '100%', height: '100%' }}>
-        <CanvasContainer
-            draw={(ctx, frameCount, scale) => draw(ctx, frameCount, scale)}
-            width={5140}
-            height={4676}
-            onPointerDown={handlePointerDown}
-            onPointerUp={handlePointerUp}
-            onPointerMove={setPointerCoords}
-        />
-        <Button
-            onClick={e => e.stopPropagation()}
-            onPointerDown={e => e.stopPropagation()}
-            sx={{
-                bgcolor: '#6C5DD3',
-                position: 'absolute',
-                bottom: 16,
-                right: 16,
-                left: 16,
-                borderRadius: '16px',
-                py: 1.5,
-                zIndex: 15,
-                fontFamily: 'Gilroy',
-                fontWeight: 600,
-                fontSize: '14px',
-                lineHeight: '20px',
-                letterSpacing: 0,
-                color: '#fff',
-                '&:disabled': {
+    return (
+        <Box ref={containerRef} sx={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', touchAction: 'none', userSelect: 'none' }}>
+            <TransformWrapper
+                minScale={minScale}
+                maxScale={maxScale}
+                initialScale={scale}
+                centerOnInit
+                limitToBounds
+                doubleClick={{ disabled: true }}
+                wheel={{ step: 40 }}
+                panning={{ velocityDisabled: true }}
+                onTransformed={e => handleChange(e)}
+            >
+                {({ instance }) => {
+                    return (
+                        <>
+                            <TransformComponent
+                                contentStyle={{ width: '100%', height: '100%' }}
+                                wrapperStyle={{ width: '100%', height: '100%' }}
+                            >
+                                <div
+                                    style={{ width: '100%', height: '100%', position: 'relative' }}
+                                    onClick={e => {
+                                        const container = containerRef.current;
+                                        const img = imageRef.current;
+                                        if (!container || !img) return;
+                                        const rect = container.getBoundingClientRect()
+                                        const imgRect = img.getBoundingClientRect()
+                                        const [x, y] = [
+                                            (e.clientX - imgRect.left) * (MAP_WIDTH / rect.width) / scale, 
+                                            (e.clientY - imgRect.top) * (MAP_HEIGHT / rect.height) / scale, 
+                                        ]
+                                        setMark({ x, y });
+                                    }}                                >
+                                    <img
+                                        ref={imageRef}
+                                        width="100%"
+                                        height="100%"
+                                        style={{ objectFit: 'cover', display: 'block' }}
+                                        src={MAP_IMAGE}
+                                        alt=""
+                                        draggable={false}
+                                        onLoad={() => setImageLoaded(true)}
+                                    />
+                                    {mark && (
+                                        <img
+                                            src={MARK_IMAGE}
+                                            alt="mark"
+                                            style={{
+                                                position: 'absolute',
+                                                left: `${(mark.x / MAP_WIDTH) * 100}%`,
+                                                top: `${(mark.y / MAP_HEIGHT) * 100}%`,
+                                                width: 40,
+                                                height: 40,
+                                                transform: `translate(-50%, -50%) scale(${1/scale})`,
+                                                pointerEvents: 'auto',
+                                                zIndex: 20,
+                                                cursor: 'pointer',
+                                            }}
+                                            onClick={e => {
+                                                e.stopPropagation();
+                                                setMark(null);
+                                            }}
+                                        />
+                                    )}
+                                </div>
+                            </TransformComponent>
+                        </>
+                    );
+                }}
+            </TransformWrapper>
+            <Button
+                onClick={e => e.stopPropagation()}
+                onPointerDown={e => e.stopPropagation()}
+                sx={{
+                    bgcolor: '#6C5DD3',
+                    position: 'absolute',
+                    bottom: 16,
+                    right: 16,
+                    left: 16,
+                    borderRadius: '16px',
+                    py: 1.5,
+                    zIndex: 15,
+                    fontFamily: 'Gilroy',
+                    fontWeight: 600,
+                    fontSize: '14px',
+                    lineHeight: '20px',
+                    letterSpacing: 0,
                     color: '#fff',
-                    bgcolor: '#201E1D',
-                    pointerEvents: 'none',
-                },
-                textTransform: 'none',
-            }}
-            disabled={!mark}
-        >{mark ? 'Сравнить метку' : 'Разместите метку на карте' }</Button>
-        <Coordinates tap={tapCoords} pointer={pointerCoords} />
-    </Box>;
-}
+                    '&:disabled': {
+                        color: '#fff',
+                        bgcolor: '#201E1D',
+                        pointerEvents: 'none',
+                    },
+                    textTransform: 'none',
+                }}
+                disabled={!mark}
+            >
+                {mark ? 'Сравнить метку' : 'Разместите метку на карте' }
+            </Button>
+            <Coordinates tap={mark} />
+        </Box>
+    );
+};
 
 export default Map;
