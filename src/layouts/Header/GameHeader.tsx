@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { FC } from "react";
-import Timer from "../Timer";
+import Timer from "../../components/Timer";
 
 const GameHeader: FC = () => {
     return <Box

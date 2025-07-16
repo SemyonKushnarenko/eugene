@@ -5,27 +5,25 @@ import { Box, Button } from "@mui/material";
 
 const MAP_IMAGE = "/bg.jpg";
 const MARK_IMAGE = "/icons/mark.svg";
-const MAP_WIDTH = 5140;
-const MAP_HEIGHT = 4676;
 
 const Map: FC = () => {
     const minScale = 1;
-    const maxScale = 3;
+    const maxScale = 5;
+    // Store mark in map coordinates (image pixels)
     const [mark, setMark] = useState<{ x: number; y: number } | null>(null);
     const [pointerCoords, setPointerCoords] = useState<{ x: number; y: number } | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
     const [imageLoaded, setImageLoaded] = useState(false);
     const [scale, setScale] = useState(1);
-    const [a, setA] = useState<number[]>([]);
-    const [positionX, setPositionX] = useState(0)
-    const [positionY, setPositionY] = useState(0)
-  
+    const [positionX, setPositionX] = useState(0);
+    const [positionY, setPositionY] = useState(0);
+    const [imgSize, setImgSize] = useState<{ width: number; height: number } | null>(null);
+
     function handleChange(event: any) {
         setScale(event.instance.transformState.scale);
         setPositionX(event.instance.transformState.positionX);
         setPositionY(event.instance.transformState.positionY);
-        
     }
 
     return (
@@ -53,14 +51,21 @@ const Map: FC = () => {
                                     onClick={e => {
                                         const container = containerRef.current;
                                         const img = imageRef.current;
-                                        if (!container || !img) return;
-                                        const rect = container.getBoundingClientRect()
-                                        const imgRect = img.getBoundingClientRect()
-                                        const [x, y] = [
-                                            (e.clientX - imgRect.left) * (MAP_WIDTH / rect.width) / scale, 
-                                            (e.clientY - imgRect.top) * (MAP_HEIGHT / rect.height) / scale, 
-                                        ]
-                                        setMark({ x, y });
+                                        if (!container || !img || !imgSize) return;
+                                        const containerRect = container.getBoundingClientRect();
+                                        const imgRect = img.getBoundingClientRect();
+                                        // Get click position relative to the container
+                                        const clickX = e.clientX - containerRect.left;
+                                        const clickY = e.clientY - containerRect.top;
+                                        // Undo pan/zoom using state
+                                        const x = (clickX - positionX - (imgRect.left - containerRect.left)) / scale;
+                                        const y = (clickY - positionY - (imgRect.top - containerRect.top)) / scale;
+                                        // Convert to map coordinates (relative to image size)
+                                        const imgX = x / imgRect.width;
+                                        const imgY = y / imgRect.height;
+                                        const mapX = imgX * imgSize.width;
+                                        const mapY = imgY * imgSize.height;
+                                        setMark({ x: mapX, y: mapY });
                                     }}                                >
                                     <img
                                         ref={imageRef}
@@ -70,19 +75,23 @@ const Map: FC = () => {
                                         src={MAP_IMAGE}
                                         alt=""
                                         draggable={false}
-                                        onLoad={() => setImageLoaded(true)}
+                                        onLoad={e => {
+                                            setImageLoaded(true);
+                                            const img = e.currentTarget;
+                                            setImgSize({ width: img.naturalWidth, height: img.naturalHeight });
+                                        }}
                                     />
-                                    {mark && (
+                                    {mark && imgSize && (
                                         <img
                                             src={MARK_IMAGE}
                                             alt="mark"
                                             style={{
                                                 position: 'absolute',
-                                                left: `${(mark.x / MAP_WIDTH) * 100}%`,
-                                                top: `${(mark.y / MAP_HEIGHT) * 100}%`,
+                                                left: `${(mark.x / imgSize.width) * 100}%`,
+                                                top: `${(mark.y / imgSize.height) * 100}%`,
                                                 width: 40,
                                                 height: 40,
-                                                transform: `translate(-50%, -50%) scale(${1/scale})`,
+                                                transform: `translate(-50%, -100%) scale(${1/scale})`,
                                                 pointerEvents: 'auto',
                                                 zIndex: 20,
                                                 cursor: 'pointer',

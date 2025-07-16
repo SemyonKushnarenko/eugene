@@ -1,10 +1,12 @@
-import { Container, Theme, ThemeProvider } from '@mui/material';
+import { Theme, ThemeProvider } from '@mui/material';
 import { darkTheme, lightTheme } from './theme';
 import { useEffect, useState } from 'react';
-import GameHeader from './components/Header/GameHeader';
-import MapContainer from './components/Map/MapContainer';
-// import Sphere from './components/Sphere';
-import PanoramaV2 from './components/Map/PanoramaV2';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import GameLayout from './layouts/GameLayout';
+import AppLayout from './layouts/AppLayout';
+import GamePage from './pages/GamePage';
+import MainPage from './pages/MainPage';
+import LeaderBoardPage from './pages/LeaderBoardPage';
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>(lightTheme);
@@ -27,18 +29,25 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between'
-        }}
-      >
-        <GameHeader/>
-        <MapContainer/>
-        {/* <Sphere /> */}
-        <PanoramaV2 />
-      </Container>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/game" element={
+            <GameLayout>
+              <GamePage />
+            </GameLayout>
+          } />
+          <Route path="/" element={
+            <AppLayout>
+              <MainPage /> 
+            </AppLayout>
+          } />
+          <Route path="/leaderboard" element={
+            <AppLayout>
+              <LeaderBoardPage /> 
+            </AppLayout>
+          } />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

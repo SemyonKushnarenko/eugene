@@ -1,9 +1,12 @@
 import { FC, useState } from "react";
 import Map from "./Map";
 import { Button, Box, ClickAwayListener } from "@mui/material";
+import { useAtom } from "jotai";
+import { canPlayAtom } from "../../store/gameAtoms";
 
 const MapContainer: FC = () => {
     const [showMap, setShowMap] = useState(false);
+    const canPlay = useAtom(canPlayAtom)
 
     return (
         <Box>
