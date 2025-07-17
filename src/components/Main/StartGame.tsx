@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 const StartGame: FC = () => {
     return <Box
@@ -55,24 +56,33 @@ const StartGame: FC = () => {
                     mt: '20px', 
                     width: '100%',
                     zIndex: 15,
-                    fontFamily: 'Gilroy',
-                    fontWeight: 600,
-                    fontSize: '14px',
-                    lineHeight: '20px',
-                    letterSpacing: 0,
-                    color: '#fff',
                     textTransform: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 0.5,
                 }}
             >
-                Начать игру
-                <img
-                    src='icons/arrowRight.svg'
-                    alt=''
-                />
+                <Link 
+                    to='/game'
+                    style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '4px',
+                        textDecoration: 'none',
+                        fontFamily: 'Gilroy',
+                        fontWeight: 600,
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        letterSpacing: 0,
+                        color: '#fff',
+                        verticalAlign: 'middle',
+                    }}
+                >
+                    Начать игру
+                    <img
+                        src='icons/arrowRight.svg'
+                        alt=''
+                    />
+                </Link>
             </Button>
         </Box>
 }

@@ -12,7 +12,7 @@ const LeaderBoardPage: FC = () => {
             width: '100%'
         }}
     >
-        <LeaderBoard isMain />
+        <LeaderBoard />
     </Box>
 }
 

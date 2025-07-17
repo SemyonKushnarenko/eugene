@@ -1,93 +1,80 @@
-import { getCupByIndex, getShortAmount } from "../../helpers/leaderboard";
+import { getCupByIndex, getShortAmount, players } from "../../helpers/leaderboard";
 import { Box, Button, Typography } from "@mui/material";
 import { FC } from "react";
-import { Link } from "react-router-dom";
-
-interface IPlayer {
-    id: number,
-    name: string,
-    points: number,
-    country?: string,
-    avatar?: string,
-};
-
-const players: IPlayer[] = [
-    {
-        id: 56745,
-        name: 'Oleg Starovoit',
-        points: 135_000_000,
-        country: 'ru',
-        avatar: '/avatar/Oleg.png',
-    },
-    {
-        id: 526745,
-        name: 'Natalia Vi',
-        points: 122_000_000,
-        country: 'es',
-        avatar: '/avatar/Oleg.png',
-    },
-    {
-        id: 5263745,
-        name: 'Elena Marin',
-        points: 122_000,
-        country: '',
-        avatar: '',
-    },
-    {
-        id: 52633745,
-        name: 'Alice Kuralesina',
-        points: 387,
-        country: '',
-        avatar: '/avatar/Oleg.png',
-    },
-    {
-        id: 52653745,
-        name: 'Natalia Vi',
-        points: 254,
-        country: 'ch',
-        avatar: '',
-    },
-    {
-        id: 52653745,
-        name: 'Natalia Vi',
-        points: 254,
-        country: '',
-        avatar: '',
-    },
-]
+import { Link, useSearchParams } from "react-router-dom";
+import Pagination from "./Pagination";
 
 interface ILeaderBoard {
     isMain?: boolean
 }
 
+const PAGE_SIZE = 30;
+
 const LeaderBoard: FC<ILeaderBoard> = ({isMain = false}) => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const page = Number(searchParams.get('page')) || 1;
+    const totalPages = Math.ceil(players.length / PAGE_SIZE);
+    const pagedPlayers = isMain
+        ? players.slice(0, 5)
+        : players.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+    const handleChange = (newPage: number) => {
+        setSearchParams({ ...Object.fromEntries(searchParams.entries()), page: String(newPage) });
+    };
     return <Box
             sx={{
-                bgcolor: '#6C5DD31A',
+                bgcolor: isMain ? '#6C5DD31A' : '',
                 width: '100%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexDirection: 'column',
+                gap: !isMain ? '5px' : '',
                 px: 2,
                 borderRadius: 2,
-                mt: '40px'
+                mt: '40px',
+                position: 'relative',
+                zIndex: 5,
             }}
         >
-            {players.slice(0, 5).map(({id, name, points, country, avatar}, index) => (
+            {pagedPlayers.map(({id, name, points, country, avatar}, index) => {
+                const cup = getCupByIndex((page - 1) * PAGE_SIZE + index + 1);
+                return (
                 <Box 
                     key={id}
                     sx={{
-                        pt: 2,
+                        position: 'relative',
+                        boxSizing: 'border-box',
+                        bgcolor: isMain ? '' : '#6C5DD31A',
+                        pt: isMain ? 2 : 'auto',
                         display: 'flex',
-                        gap: 2,
+                        gap: !isMain ? 1 : 2,
                         alignItems: 'center',
-                        justifyContent: 'space-between',
                         width: '100%',
-                        borderBottom: '1px solid #40434F',
-                        minHeight: '84px',
+                        borderBottom: isMain ? '1px solid #40434F' : '',
+                        borderRadius: !isMain ? 2 : 0,
+                        p: isMain ? 'auto' : 2,
+                        minHeight: !isMain ? '82px' : '100px',
+                        maxHeight: !isMain ? '82px' : '100px',
+                        mb: !isMain && index === pagedPlayers.length - 1 ? '20px' : '',
                     }}
                 >
+                    {!isMain && <Box
+                        sx={{
+                            bgcolor: '#161413',
+                            height: '20px',
+                            width: '28px',
+                            borderRadius: '60px',
+                            fontFamily: 'Gilroy',
+                            fontWeight: 800,
+                            fontSize: '12px',
+                            lineHeight: 1,
+                            letterSpacing: 0,
+                            color: '#FFFFFF',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >{(page - 1) * PAGE_SIZE + index + 1}.</Box>}
                     <img 
                         src={avatar ? avatar : '/avatar/no_avatar.svg'}
                         alt=''
@@ -141,17 +128,19 @@ const LeaderBoard: FC<ILeaderBoard> = ({isMain = false}) => {
                     </Box>
                     <img
                         style={{
+                            position: 'absolute',
+                            right: 0,
                             marginLeft: 'auto',
-                            translate: index < 3 ? '30px' : '',
+                            translate: !cup.startsWith('n') ? '14px' : '-16px',
                         }}
-                        width={index >= 3 ? 24 : 84}
-                        height={index >= 3 ? 24 : 84}
+                        width={cup.startsWith('n') ? 24 : 84}
+                        height={cup.startsWith('n') ? 24 : 84}
                         alt=""
-                        src={`leaderboard/${getCupByIndex(index + 1)}`}
+                        src={`leaderboard/${cup}`}
                     />
                 </Box>
-            ))}
-            <Link
+            )})}
+            {isMain && <Link
                 to='leaderboard'
                 style={{
                     color: '#40434F',
@@ -164,7 +153,8 @@ const LeaderBoard: FC<ILeaderBoard> = ({isMain = false}) => {
                     padding: '16px 0',
                     textDecoration: 'none',
                 }}
-            >Показать всех</Link>
+            >Показать всех</Link>}
+            {!isMain && <Pagination total={totalPages} page={page} onChange={handleChange} />}
         </Box>
 }
 

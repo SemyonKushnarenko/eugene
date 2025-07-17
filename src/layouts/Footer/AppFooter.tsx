@@ -29,7 +29,8 @@ const AppFooter: FC = () => {
             paddingTop: '60px',
         }}
     >
-        {links.map(({to, name}) => <Link
+        {links.map(({to, name}, id) => <Link
+            key={id}
             to={to}
             style={{
                 color: '#40434F',

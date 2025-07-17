@@ -14,7 +14,7 @@ const MainPage: FC = () => {
         }}
     >
         <StartGame></StartGame>
-        <LeaderBoard></LeaderBoard>
+        <LeaderBoard isMain></LeaderBoard>
     </Box>
 }
 

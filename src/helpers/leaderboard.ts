@@ -14,3 +14,21 @@ export function getShortAmount(points: number): string {
     if (rest > 1 && rest < 5) return points + ' балла'
     return points + ' баллов'
 }
+
+export interface IPlayer {
+    id: number,
+    name: string,
+    points: number,
+    country?: string,
+    avatar?: string,
+};
+
+export const players: IPlayer[] = Array.from({length: 187}, (_, i) => ({
+    id: i + 1,
+    name: `Player ${i + 1}`,
+    points: Math.ceil(Math.random() * 22000000),
+    country: ['ru', 'es', 'ch'][i % 10],
+    avatar: i % 4 === 0 ? '/avatar/Oleg.png' : '',
+})).sort((a, b) => b.points - a.points);
+
+console.log('players', players)

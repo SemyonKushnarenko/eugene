@@ -25,7 +25,7 @@ const AppLayout: FC<{ children?: ReactNode }> = ({ children = null }) => (
             right: 0,
             top: -10,
             zIndex: -1,
-            width: 'minmax(100%)'
+            width: 'min(393px, 100%)'
         }}
         src='/main_bg.png'
     />
@@ -33,6 +33,7 @@ const AppLayout: FC<{ children?: ReactNode }> = ({ children = null }) => (
     <Box
         sx={{
             flex: 1,
+            width: '100%',
         }}
     >
         {children}

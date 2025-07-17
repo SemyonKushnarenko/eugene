@@ -1,13 +1,27 @@
 import { Box, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, useMemo } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const AppHeader: FC = () => {
+    const location = useLocation();
+    const backLinks: Record<string, string[]> = {
+        '/': ['/leaderboard', '/game']   
+    };
+    const backLink = useMemo(() => {
+        for (const [target, sources] of Object.entries(backLinks)) {
+            if (sources.includes(location.pathname)) {
+                return target;
+            }
+        }
+        return '';
+    }, [location.pathname]);
+    
     return <Box
         sx={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%'
+            width: '100%',
+            gap: 2,
         }}
     >
         <img
@@ -16,7 +30,29 @@ const AppHeader: FC = () => {
             width={118}
             src='/main_header.png'
         />
+        {backLink && <Link
+            to={backLink}
+            style={{
+                width: 40,
+                aspectRatio: 1,
+                backgroundColor: '#6C5DD333',
+                borderRadius: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        >
+            <img
+                alt=""
+                height={24}
+                width={24}
+                src='/icons/backArrow.svg'
+            />
+        </Link>}
         <img
+            style={{
+                marginLeft: 'auto',
+            }}
             alt=""
             height={24}
             width={24}
