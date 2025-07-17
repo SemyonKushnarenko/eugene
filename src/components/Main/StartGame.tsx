@@ -60,7 +60,7 @@ const StartGame: FC = () => {
                 }}
             >
                 <Link 
-                    to='/game'
+                    to='/choose-game'
                     style={{
                         width: '100%',
                         display: 'flex',

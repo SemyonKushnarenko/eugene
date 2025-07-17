@@ -7,6 +7,8 @@ import AppLayout from './layouts/AppLayout';
 import GamePage from './pages/GamePage';
 import MainPage from './pages/MainPage';
 import LeaderBoardPage from './pages/LeaderBoardPage';
+import ChooseGamePage from './pages/ChooseGamePage';
+import GameParamsPage from './pages/GameParamsPage';
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>(lightTheme);
@@ -44,6 +46,16 @@ export default function App() {
           <Route path="/leaderboard" element={
             <AppLayout>
               <LeaderBoardPage /> 
+            </AppLayout>
+          } />
+          <Route path="/choose-game" element={
+            <AppLayout>
+              <ChooseGamePage /> 
+            </AppLayout>
+          } />
+          <Route path="/choose-game/:slug" element={
+            <AppLayout>
+              <GameParamsPage />
             </AppLayout>
           } />
         </Routes>

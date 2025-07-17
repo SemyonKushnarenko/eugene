@@ -5,9 +5,12 @@ import { Link, useLocation } from "react-router-dom";
 const AppHeader: FC = () => {
     const location = useLocation();
     const backLinks: Record<string, string[]> = {
-        '/': ['/leaderboard', '/game']   
+        '/': ['/leaderboard', '/choose-game']   
     };
     const backLink = useMemo(() => {
+        if (location.pathname.startsWith('/choose-game/') && location.pathname !== '/choose-game') {
+            return '/choose-game';
+        }
         for (const [target, sources] of Object.entries(backLinks)) {
             if (sources.includes(location.pathname)) {
                 return target;
