@@ -9,5 +9,5 @@ export const useGetGame = (slug: string) =>
     useQuery({
         queryKey: ["GET_GAME"],
         queryFn: () => getGame(slug),
-        staleTime: 1000 * 60 * 5,
+        staleTime: 400,
     });
