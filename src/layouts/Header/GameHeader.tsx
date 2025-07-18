@@ -1,11 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import { FC } from "react";
 import Timer from "../../components/Timer";
-import { useAtom } from "jotai";
-import { timeAtom } from "../../store/gameAtoms";
+import { useAtom, useAtomValue } from "jotai";
+import { canPlayAtom, timeAtom } from "../../store/gameAtoms";
 
 const GameHeader: FC = () => {
-    const [time, setTime] = useAtom(timeAtom)
+    const time = useAtomValue(timeAtom)
+    const canPlay = useAtomValue(canPlayAtom)
+
     return <Box
         sx={{
             position: 'relative',
@@ -24,7 +26,7 @@ const GameHeader: FC = () => {
             width={24}
             height={24}
         />
-        <Box
+        {canPlay && <Box
             sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -102,7 +104,7 @@ const GameHeader: FC = () => {
                     }}
                 >9999</Typography>
             </Box>
-        </Box>  
+        </Box>}
     </Box>
 } 
 

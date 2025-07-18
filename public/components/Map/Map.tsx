@@ -3,7 +3,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Coordinates from "../Coordinates";
 import { Box, Button } from "@mui/material";
 import { useAtom, useSetAtom } from "jotai";
-import { canPlayAtom, imageLoadedAtom, mapSizeAtom, markAtom } from "../../store/gameAtoms";
+import { canPlayAtom, mapSizeAtom, markAtom } from "../../store/gameAtoms";
 
 const MAP_IMAGE = "/bg.jpg";
 const MARK_IMAGE = "/icons/mark.svg";
@@ -15,12 +15,16 @@ const Map: FC = () => {
     const setCanPlay = useSetAtom(canPlayAtom)
     const containerRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
-    const setImageLoaded = useSetAtom(imageLoadedAtom);
+    const [imageLoaded, setImageLoaded] = useState(false);
     const [scale, setScale] = useState(1);
+    const [positionX, setPositionX] = useState(0);
+    const [positionY, setPositionY] = useState(0);
     const [imgSize, setImgSize] = useAtom<{ width: number; height: number } | null>(mapSizeAtom);
 
     function handleChange(event: any) {
         setScale(event.instance.transformState.scale);
+        setPositionX(event.instance.transformState.positionX);
+        setPositionY(event.instance.transformState.positionY);
     }
 
     return (

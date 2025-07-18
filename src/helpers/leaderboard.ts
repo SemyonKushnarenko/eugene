@@ -30,5 +30,3 @@ export const players: IPlayer[] = Array.from({length: 187}, (_, i) => ({
     country: ['ru', 'es', 'ch'][i % 10],
     avatar: i % 4 === 0 ? '/avatar/Oleg.png' : '',
 })).sort((a, b) => b.points - a.points);
-
-console.log('players', players)

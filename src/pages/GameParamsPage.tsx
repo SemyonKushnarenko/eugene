@@ -1,11 +1,12 @@
 import Game from "../components/ChooseGame/Game";
-import { Box, Button, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { FC } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGetGame } from "../api/hooks/queries/use-get-game";
 import './GameParams.css'
 import { useAtom } from "jotai";
 import { timeAtom } from "../store/gameAtoms";
+import { timeOptions } from "../helpers/timeOptions";
 
 const GameParamsPage: FC = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -13,33 +14,6 @@ const GameParamsPage: FC = () => {
     if (!slug) return null;
 
     const [time, setTime] = useAtom(timeAtom)
-
-    const timeOptions = [
-        {
-            time: 20,
-            label: '20 секунд',
-        },
-        {
-            time: 60,
-            label: '1 минута',
-        },
-        {
-            time: 300,
-            label: '5 минут',
-        },
-        {
-            time: 600,
-            label: '10 минут',
-        },
-        {
-            time: 1800,
-            label: '30 минут',
-        },
-        {
-            time: 3600,
-            label: '60 минут',
-        },
-    ]
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setTime(Number(e.target.value))
@@ -156,7 +130,7 @@ const GameParamsPage: FC = () => {
                     height={24}
                 />
                 {timeOptions.map(option => 
-                    <option value={option.time} selected={time === option.time}>{option.label}</option>
+                    <option key={option.time} value={option.time} selected={time === option.time}>{option.label}</option>
                 )}
             </select>
             <Button

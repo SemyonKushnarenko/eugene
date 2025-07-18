@@ -16,6 +16,6 @@ export const games: IGame[] = [
         name: 'Genship Impact',
         bg: '/games/genshin_bg.png',
         icon: '/games/genshin_icon.png',
-        slug: 'pubg',
+        slug: 'genshin',
     },
 ]
