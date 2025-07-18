@@ -1,7 +1,7 @@
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import MapContainer from '../components/Map/MapContainer';
 import PanoramaV2 from '../components/Map/PanoramaV2';
-import { canPlayAtom, imageLoadedAtom, panoramaLoadedAtom } from '../store/gameAtoms';
+import { canPlayAtom, imageLoadedAtom, loadingGameAtom, panoramaLoadedAtom } from '../store/gameAtoms';
 import TimeStop from '../components/Map/TimeStop';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import './GamePageTransition.css';
@@ -14,11 +14,11 @@ const GamePage = () => {
   const nodeRef = useRef(null);
   const loadImg = useAtomValue(imageLoadedAtom)
   const loadPanorama = useAtomValue(panoramaLoadedAtom)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useAtom(loadingGameAtom)
 
   useEffect(() => {
     async function loading() {
-        await wait(2000)
+        await wait(1000)
         setIsLoading(false)
     }
       loading()

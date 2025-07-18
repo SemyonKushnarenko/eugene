@@ -6,19 +6,19 @@ import { mapSizeAtom, markAtom } from "../../store/gameAtoms";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 const TimeStop: FC = () => {
-    const mark = useAtomValue(markAtom)
-    const mapSize = useAtomValue(mapSizeAtom)
-    const [flag, setFlag] = useState<{ x: number; y: number } | null>(null)
+    const mark = useAtomValue(markAtom);
+    const mapSize = useAtomValue(mapSizeAtom);
+    const [flag, setFlag] = useState<{ x: number; y: number } | null>(null);
+
 
     useEffect(() => {
         if (!mapSize) return;
         setFlag({
-            x: Math.random() * mapSize.width,
-            y: Math.random() * mapSize.height,
+            x: 0.79 * mapSize.width,
+            y: 0.5 * mapSize.height,
         })
-    }, [mapSize])
+    }, [mapSize]);
 
-    useEffect(() => console.log(mark), [mark])
     return <Box
         sx={{
             boxSizing: 'border-box',
@@ -40,13 +40,12 @@ const TimeStop: FC = () => {
             maxScale={1}
             initialScale={1}
             limitToBounds
-            centerOnInit
-            initialPositionX={flag.x || 0}
-            initialPositionY={0}
             doubleClick={{ disabled: true }}
             panning={{ velocityDisabled: true }}
             alignmentAnimation={{ sizeX: 0, sizeY: 0 }}
         >
+            
+      {({ setTransform }) => (
             <TransformComponent
                 contentStyle={{ width: 'max-content', height: '100vh' }}
                 wrapperStyle={{ width: '100vw', height: '100vh', 
@@ -93,6 +92,15 @@ const TimeStop: FC = () => {
                         onClick={e => {
                             e.stopPropagation();
                         }}
+                        onLoad={async () => {
+                            if (flag && mapSize) {
+                                const scale = window.innerHeight / mapSize.height;
+                                let posX = window.innerWidth / 2 - flag.x * scale;
+                                posX = Math.min(0, posX);
+                                posX = window.innerWidth - posX > mapSize.width * scale ? window.innerWidth - mapSize.width * scale + 1 : posX
+                                setTransform(posX, 0, 1);
+                            }
+                        }}
                     />}
                     <img
                         src='/bg.jpg'
@@ -105,6 +113,7 @@ const TimeStop: FC = () => {
                     />
                 </div>
             </TransformComponent>
+      )}
         </TransformWrapper>}
         {!mark && <>
             <Box

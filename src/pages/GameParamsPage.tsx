@@ -119,6 +119,7 @@ const GameParamsPage: FC = () => {
                 }}
                 className="select"
                 onChange={handleChange}
+                defaultValue={time}
             >
                 <img
                     style={{
@@ -130,7 +131,7 @@ const GameParamsPage: FC = () => {
                     height={24}
                 />
                 {timeOptions.map(option => 
-                    <option key={option.time} value={option.time} selected={time === option.time}>{option.label}</option>
+                    <option key={option.time} value={option.time}>{option.label}</option>
                 )}
             </select>
             <Button

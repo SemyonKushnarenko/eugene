@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
-import { useSetAtom } from "jotai";
-import { canPlayAtom } from "../store/gameAtoms";
+import { useAtomValue, useSetAtom } from "jotai";
+import { canPlayAtom, loadingGameAtom } from "../store/gameAtoms";
 import { Typography } from "@mui/material";
 
 interface TimerProps {
@@ -10,15 +10,17 @@ interface TimerProps {
 const Timer: FC<TimerProps> = ({ seconds }) => {
     const [timeLeft, setTimeLeft] = useState(seconds);
     const setCanPlay = useSetAtom(canPlayAtom);
+    const isLoading = useAtomValue(loadingGameAtom);
 
     useEffect(() => {
         if (timeLeft <= 0) {
             setCanPlay(false);
             return;
         }
+        if (isLoading) return;
         const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
         return () => clearTimeout(timer);
-    }, [timeLeft, setCanPlay]);
+    }, [timeLeft, setCanPlay, isLoading]);
 
     const formatTime = (totalSeconds: number) => {
         const minutes = Math.floor(totalSeconds / 60);

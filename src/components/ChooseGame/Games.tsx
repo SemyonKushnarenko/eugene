@@ -12,7 +12,7 @@ const Games: FC = () => {
             width: '100%',
         }}
     >
-        {games.map(game => <Game game={game} />)}
+        {games.map((game, index) => <Game key={index} game={game} />)}
     </Box>
 }
 
