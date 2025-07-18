@@ -1,0 +1,4 @@
+.select:focus {
+    border: 2px solid #6C5DD3;
+    background-color: #0B0A0A;
+}

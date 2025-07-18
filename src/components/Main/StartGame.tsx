@@ -79,7 +79,7 @@ const StartGame: FC = () => {
                 >
                     Начать игру
                     <img
-                        src='icons/arrowRight.svg'
+                        src='/icons/arrowRight.svg'
                         alt=''
                     />
                 </Link>

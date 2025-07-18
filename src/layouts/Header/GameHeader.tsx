@@ -1,8 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { FC } from "react";
 import Timer from "../../components/Timer";
+import { useAtom } from "jotai";
+import { timeAtom } from "../../store/gameAtoms";
 
 const GameHeader: FC = () => {
+    const [time, setTime] = useAtom(timeAtom)
     return <Box
         sx={{
             position: 'relative',
@@ -43,7 +46,7 @@ const GameHeader: FC = () => {
                     width={24}
                     height={24}
                 />
-                <Timer seconds={150} />
+                <Timer seconds={time} />
             </Box>
             <Box
                 sx={{
