@@ -41,7 +41,7 @@ const GameParamsPage: FC = () => {
                 p: 1.5,
                 mt: 3.5,
                 // bgcolor: '#161413',
-                borderRadius: '16px',
+                borderRadius: '20px',
             }}
         >
             <select
@@ -135,7 +135,7 @@ const GameParamsPage: FC = () => {
                     letterSpacing: 0,
                     ml: 0.5,
                 }}
-            >Лучший результат:</Typography>
+            >Лучшие игры:</Typography>
             <Box
                 sx={{
                     height: 246,
@@ -159,7 +159,7 @@ const GameParamsPage: FC = () => {
                         letterSpacing: 0,
                         textAlign: 'center',
                     }}
-                >Начните играть, чтобы увидеть результат</Typography>
+                >Начните играть, чтобы увидеть cтатистику</Typography>
                 <img
                     style={{
                         position: 'absolute',

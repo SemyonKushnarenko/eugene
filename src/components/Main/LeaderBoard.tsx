@@ -30,7 +30,7 @@ const LeaderBoard: FC<ILeaderBoard> = ({isMain = false}) => {
                 flexDirection: 'column',
                 gap: !isMain ? '5px' : '',
                 px: isMain ? 2 : 0,
-                borderRadius: 2,
+                borderRadius: isMain ? 3 : 2,
                 mt: '40px',
                 position: 'relative',
                 zIndex: 5,
