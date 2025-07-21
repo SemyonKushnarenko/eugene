@@ -7,7 +7,7 @@ export default defineConfig({
   base: '/pgs/',
   plugins: [
     react(),
-    mkcert(),
+    // mkcert(),
   ],
   server: {
       fs: {
