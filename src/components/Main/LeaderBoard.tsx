@@ -151,7 +151,7 @@ const LeaderBoard: FC<ILeaderBoard> = ({isMain = false}) => {
                         width={isMain ? 64 : cup.startsWith('n') ? 24 : 84}
                         height={isMain ? 64 : cup.startsWith('n') ? 24 : 84}
                         alt=""
-                        src={`leaderboard/${cup}`}
+                        src={`/leaderboard/${cup}`}
                     />
                 </Box>
             )})}
