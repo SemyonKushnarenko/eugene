@@ -6,5 +6,6 @@ body {
 }
 
 #root {
+    overflow: hidden;
     width: 100%;
 }

@@ -34,6 +34,7 @@ const AppLayout: FC<{ children?: ReactNode }> = ({ children = null }) => (
         sx={{
             flex: 1,
             width: '100%',
+            // overflow: 'hidden',
         }}
     >
         {children}

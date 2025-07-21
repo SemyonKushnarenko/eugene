@@ -3,6 +3,7 @@ import { FC } from "react";
 import Timer from "../../components/Timer";
 import { useAtom, useAtomValue } from "jotai";
 import { canPlayAtom, timeAtom } from "../../store/gameAtoms";
+import { Link } from "react-router-dom";
 
 const GameHeader: FC = () => {
     const time = useAtomValue(timeAtom)
@@ -12,20 +13,33 @@ const GameHeader: FC = () => {
         sx={{
             position: 'relative',
             zIndex: 7,
-            pt: 2.5,
+            mt: 2.5,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             width: '100%',
-            color: '#ffffff'
+            color: '#ffffff',
+            boxSizing: 'border-box',
+            minHeight: '30px',
         }}
     >
+        <Link
+            to='/'
+            style={{
+                position: "absolute",
+                top: '50%',
+                left: 0,
+                transform: 'translateY(-50%)',
+                fontSize: 0,
+            }}
+        >
         <img
             src="/icons/headerIcon.svg"
             alt=""
-            width={24}
-            height={24}
+            width={30}
+            height={30}
         />
+        </Link>
         {canPlay && <Box
             sx={{
                 display: 'flex',
@@ -36,7 +50,6 @@ const GameHeader: FC = () => {
             <Box
                 sx={{
                     display: "flex",
-                    mr: '20px',
                     py: 1,
                     px: 2.5,
                     bgcolor: 'rgba(0,0,0,0.7)',
@@ -50,7 +63,7 @@ const GameHeader: FC = () => {
                 />
                 <Timer seconds={time} />
             </Box>
-            <Box
+            {/* <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'column'
@@ -103,7 +116,7 @@ const GameHeader: FC = () => {
                         textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
                     }}
                 >9999</Typography>
-            </Box>
+            </Box> */}
         </Box>}
     </Box>
 } 

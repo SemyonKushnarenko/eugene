@@ -34,6 +34,7 @@ const Map: FC = () => {
                 doubleClick={{ disabled: true }}
                 wheel={{ step: 40 }}
                 panning={{ velocityDisabled: true }}
+                alignmentAnimation={{ sizeX: 0, sizeY: 0 }}
                 onTransformed={e => handleChange(e)}
             >
                 {({ instance }) => {

@@ -34,68 +34,13 @@ const GameParamsPage: FC = () => {
             sx={{
                 width: '100%',
                 display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                mt: '20px',
-                gap: '10px',
-            }}
-        >
-            <Typography
-                sx={{
-                    color: '#FFFFFF',
-                    fontFamily: 'Gilroy',
-                    fontWeight: 600,
-                    fontSize: '22px',
-                    lineHeight: 1.25,
-                    letterSpacing: 0,
-                }}
-            >Лучший результат</Typography>
-            <Box
-                sx={{
-                    height: 246,
-                    overflow: 'hidden',
-                    width: '100%',
-                    position: 'relative',
-                    bgcolor: '#6C5DD31A',
-                    borderRadius: '16px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <Typography
-                    sx={{
-                        color: '#828289',
-                        fontFamily: 'Gilroy',
-                        fontWeight: 500,
-                        fontSize: '15px',
-                        lineHeight: 1,
-                        letterSpacing: 0,
-                    }}
-                >Начните играть чтобы увидеть результат</Typography>
-                <img
-                    style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: '50%',
-                        translate: '-50%'
-                    }}
-                    src='/leaderboard/logo.svg'
-                    alt=''
-                />
-            </Box>
-        </Box>
-        <Box
-            sx={{
-                width: '100%',
-                display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: 2,
                 height: '48px',
                 p: 1.5,
                 mt: 3.5,
-                bgcolor: '#161413',
+                // bgcolor: '#161413',
                 borderRadius: '16px',
             }}
         >
@@ -169,6 +114,63 @@ const GameParamsPage: FC = () => {
                     />
                 </Link>
             </Button>
+        </Box>
+        <Box
+            sx={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                mt: '20px',
+                gap: '10px',
+            }}
+        >
+            <Typography
+                sx={{
+                    color: '#FFFFFF',
+                    fontFamily: 'Gilroy',
+                    fontWeight: 600,
+                    fontSize: '16px',
+                    lineHeight: 1.25,
+                    letterSpacing: 0,
+                    ml: 0.5,
+                }}
+            >Лучший результат:</Typography>
+            <Box
+                sx={{
+                    height: 246,
+                    overflow: 'hidden',
+                    width: '100%',
+                    position: 'relative',
+                    bgcolor: '#6C5DD31A',
+                    borderRadius: '16px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <Typography
+                    sx={{
+                        color: '#828289',
+                        fontFamily: 'Gilroy',
+                        fontWeight: 500,
+                        fontSize: '15px',
+                        lineHeight: 1,
+                        letterSpacing: 0,
+                        textAlign: 'center',
+                    }}
+                >Начните играть, чтобы увидеть результат</Typography>
+                <img
+                    style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: '50%',
+                        translate: '-50%'
+                    }}
+                    src='/leaderboard/logo.svg'
+                    alt=''
+                />
+            </Box>
         </Box>
     </Box>
 }

@@ -6,7 +6,7 @@ const StartGame: FC = () => {
     return <Box
             sx={{
                 position: 'relative',
-                width: '100%',
+                width: '284px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -28,13 +28,13 @@ const StartGame: FC = () => {
                     color: '#FFFFFF',
                     fontFamily: 'Gilroy',
                     fontWeight: 600,
-                    fontSize: '24px',
+                    fontSize: '28px',
                     lineHeight: '100%',
                     letterSpacing: '-0.28px',
                     textAlign: 'center',
                     width: '284px',
                 }}
-            >Ace Friends</Typography>
+            >ACE Friends</Typography>
             <Typography
                 sx={{
                     pt: 1,
