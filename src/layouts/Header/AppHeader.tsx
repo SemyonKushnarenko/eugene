@@ -52,7 +52,7 @@ const AppHeader: FC = () => {
                 src='/icons/backArrow.svg'
             />
         </Link>}
-        <img
+        {/* <img
             style={{
                 marginLeft: 'auto',
             }}
@@ -60,7 +60,7 @@ const AppHeader: FC = () => {
             height={24}
             width={24}
             src='/icons/menu.svg'
-        />
+        /> */}
     </Box>
 }
 

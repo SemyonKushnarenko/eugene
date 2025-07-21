@@ -10,20 +10,20 @@ import {
     swipeBehavior,
 } from "@telegram-apps/sdk-react";
 import { OpenAPI } from "./api/generated";
-import { retrieveLaunchParams } from '@tma.js/sdk';
+import { retrieveLaunchParams } from '@telegram-apps/sdk';
 import './main.css';
-// init();
-// miniApp.mount.ifAvailable();
-// miniApp.ready.ifAvailable();
-// swipeBehavior.mount.ifAvailable();
-// swipeBehavior.disableVertical.ifAvailable();
+init();
+miniApp.mount.ifAvailable();
+miniApp.ready.ifAvailable();
+swipeBehavior.mount.ifAvailable();
+swipeBehavior.disableVertical.ifAvailable();
 
-// const { initDataRaw } = retrieveLaunchParams();
-// if (initDataRaw && isTMA()) {
-//   OpenAPI.HEADERS = {
-//     Authorization: String(initDataRaw),
-//   };
-// }
+const { initDataRaw } = retrieveLaunchParams();
+if (initDataRaw && isTMA()) {
+  OpenAPI.HEADERS = {
+    Authorization: String(initDataRaw),
+  };
+}
 
 const queryClient = new QueryClient();
 
