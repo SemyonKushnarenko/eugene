@@ -20,7 +20,7 @@ const StartGame: FC = () => {
                     zIndex: -1,
                 }}
                 alt=""
-                src='/logo.png'
+                src='logo.png'
             />
             <Typography
                 sx={{
@@ -79,7 +79,7 @@ const StartGame: FC = () => {
                 >
                     Начать игру
                     <img
-                        src='/icons/arrowRight.svg'
+                        src='icons/arrowRight.svg'
                         alt=''
                     />
                 </Link>

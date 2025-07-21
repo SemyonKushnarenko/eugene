@@ -30,7 +30,7 @@ const MapContainer: FC = () => {
                 <img 
                     width={42}
                     height={32}
-                    src="/icons/map.svg"
+                    src="icons/map.svg"
                     alt=""
                 />
             </Button>
@@ -62,7 +62,7 @@ const MapContainer: FC = () => {
                             color: "white",
                             zIndex: 11,
                         }}
-                        src="/icons/close.svg"
+                        src="icons/close.svg"
                         width={24}
                         height={24}
                     />

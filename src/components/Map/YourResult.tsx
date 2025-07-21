@@ -37,7 +37,7 @@ const YourResult: FC = () => {
             }}
         >
             <img
-                src='/countries/ru.svg'
+                src='countries/ru.svg'
                 alt=''
             />
             <Typography
@@ -69,7 +69,7 @@ const YourResult: FC = () => {
                 }}
             >
                 <img
-                    src='/icons/star.svg'
+                    src='icons/star.svg'
                     alt='star'
                     width={24}
                     height={24}
@@ -94,7 +94,7 @@ const YourResult: FC = () => {
                 }}
             >
                 <img
-                    src='/icons/alert_gray.svg'
+                    src='icons/alert_gray.svg'
                     alt='star'
                     width={24}
                     height={24}
@@ -119,7 +119,7 @@ const YourResult: FC = () => {
                 }}
             >
                 <img
-                    src='/icons/mark_gray.svg'
+                    src='icons/mark_gray.svg'
                     alt='star'
                     width={24}
                     height={24}
@@ -171,7 +171,7 @@ const YourResult: FC = () => {
             >
                 Следующая игра
                 <img
-                    src='/icons/arrowRight.svg'
+                    src='icons/arrowRight.svg'
                     alt=''
                 />
             </Link>

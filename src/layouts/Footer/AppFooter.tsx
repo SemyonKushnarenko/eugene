@@ -51,7 +51,7 @@ const AppFooter: FC = () => {
             paddingTop: '48px',
         }}
     >
-        <img src='/main_header.png' alt='' height={48} width={118}/>
+        <img src='main_header.png' alt='' height={48} width={118}/>
     </Link>
 
     <Typography

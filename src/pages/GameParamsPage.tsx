@@ -70,7 +70,7 @@ const GameParamsPage: FC = () => {
                     style={{
 
                     }}
-                    src='/icons/alert.svg'
+                    src='icons/alert.svg'
                     alt=""
                     width={24}
                     height={24}
@@ -109,7 +109,7 @@ const GameParamsPage: FC = () => {
                 >
                     Начать игру
                     <img
-                        src='/icons/arrowRight.svg'
+                        src='icons/arrowRight.svg'
                         alt=''
                     />
                 </Link>
@@ -167,7 +167,7 @@ const GameParamsPage: FC = () => {
                         left: '50%',
                         translate: '-50%'
                     }}
-                    src='/leaderboard/logo.svg'
+                    src='leaderboard/logo.svg'
                     alt=''
                 />
             </Box>

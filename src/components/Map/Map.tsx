@@ -5,8 +5,8 @@ import { Box, Button } from "@mui/material";
 import { useAtom, useSetAtom } from "jotai";
 import { canPlayAtom, imageLoadedAtom, mapSizeAtom, markAtom } from "../../store/gameAtoms";
 
-const MAP_IMAGE = "/bg.jpg";
-const MARK_IMAGE = "/icons/mark.svg";
+const MAP_IMAGE = "bg.jpg";
+const MARK_IMAGE = "icons/mark.svg";
 
 const Map: FC = () => {
     const minScale = 1;

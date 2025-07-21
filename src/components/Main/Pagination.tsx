@@ -45,7 +45,7 @@ const Pagination: FC<IPagination> = ({ page, total, onChange }) => {
         }}
         onClick={() => page > 1 && onChange(page - 1)}
       >
-        <img src="/pagination/prev.svg" alt="prev" width={16} height={16} />
+        <img src="pagination/prev.svg" alt="prev" width={16} height={16} />
       </Box>
       {pages.map((p, i) =>
         p === '...'
@@ -56,7 +56,7 @@ const Pagination: FC<IPagination> = ({ page, total, onChange }) => {
                 alignItems: 'center', 
                 justifyContent: 'center',
             }}>
-              <img src="/pagination/more.svg" alt="more" width={13} height={12} />
+              <img src="pagination/more.svg" alt="more" width={13} height={12} />
             </Box>
           : <Box
               key={i}
@@ -95,7 +95,7 @@ const Pagination: FC<IPagination> = ({ page, total, onChange }) => {
         }}
         onClick={() => page < total && onChange(page + 1)}
       >
-        <img src="/pagination/next.svg" alt="next" width={16} height={16} />
+        <img src="pagination/next.svg" alt="next" width={16} height={16} />
       </Box>
     </Box>
   );

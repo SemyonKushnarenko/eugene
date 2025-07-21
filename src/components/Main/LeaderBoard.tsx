@@ -91,7 +91,7 @@ const LeaderBoard: FC<ILeaderBoard> = ({isMain = false}) => {
                         }}
                     >{(page - 1) * PAGE_SIZE + index + 1}.</Box>}
                     <img 
-                        src={avatar ? avatar : '/avatar/no_avatar.svg'}
+                        src={avatar ? avatar : 'avatar/no_avatar.svg'}
                         alt=''
                         width={isMain ? 40 : 48}
                         height={isMain ? 40 : 48}
@@ -112,7 +112,7 @@ const LeaderBoard: FC<ILeaderBoard> = ({isMain = false}) => {
                             }}
                         >
                             {country && <img 
-                                src={`/countries/${country}.svg`}
+                                src={`countries/${country}.svg`}
                                 alt={country}
                                 width={16}
                                 height={16}

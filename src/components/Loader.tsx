@@ -29,7 +29,7 @@ const Loader: FC =() => {
             zIndex: 10,
             width: 'min(393px, 100%)'
         }}
-        src='/main_bg.png'
+        src='main_bg.png'
     />
     <Box
         sx={{
@@ -47,7 +47,7 @@ const Loader: FC =() => {
                 marginTop: '-140px',
                 width: 'min(393px, 100%)'
             }}
-            src='/icons/logo.svg'
+            src='icons/logo.svg'
         />
         <Typography
             sx={{

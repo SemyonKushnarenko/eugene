@@ -27,7 +27,7 @@ const AppLayout: FC<{ children?: ReactNode }> = ({ children = null }) => (
             zIndex: -1,
             width: 'min(393px, 100%)'
         }}
-        src='/main_bg.png'
+        src='main_bg.png'
     />
     <AppHeader />
     <Box

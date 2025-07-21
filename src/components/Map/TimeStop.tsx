@@ -57,7 +57,7 @@ const TimeStop: FC = () => {
                     style={{ width: '100%', height: '100%', position: 'relative' }}>
                     {mark && (
                         <img
-                            src='/icons/mark.svg'
+                            src='icons/mark.svg'
                             alt="mark"
                             style={{
                                 position: 'absolute',
@@ -76,7 +76,7 @@ const TimeStop: FC = () => {
                         />
                     )}
                     {flag && mark && <img
-                        src='/icons/flag.svg'
+                        src='icons/flag.svg'
                         alt="flag"
                         style={{
                             position: 'absolute',
@@ -103,7 +103,7 @@ const TimeStop: FC = () => {
                         }}
                     />}
                     <img
-                        src='/bg.jpg'
+                        src='bg.jpg'
                         alt=''
                         style={{
                             width: '100%',

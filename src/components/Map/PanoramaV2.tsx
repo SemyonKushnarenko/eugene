@@ -3,7 +3,7 @@ import { useSetAtom } from 'jotai';
 import React, { useRef, useState, useEffect } from 'react';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
-const TEXTURE = '/texture.jpg';
+const TEXTURE = 'texture.jpg';
 
 const PanoramaV2: React.FC = () => {
     const [imgWidth, setImgWidth] = useState<number | null>(null);

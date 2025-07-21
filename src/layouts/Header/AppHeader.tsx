@@ -31,7 +31,7 @@ const AppHeader: FC = () => {
             alt=""
             height={48}
             width={118}
-            src='/main_header.png'
+            src='main_header.png'
         />
         {backLink && <Link
             to={backLink}
@@ -49,7 +49,7 @@ const AppHeader: FC = () => {
                 alt=""
                 height={24}
                 width={24}
-                src='/icons/backArrow.svg'
+                src='icons/backArrow.svg'
             />
         </Link>}
         {/* <img
@@ -59,7 +59,7 @@ const AppHeader: FC = () => {
             alt=""
             height={24}
             width={24}
-            src='/icons/menu.svg'
+            src='icons/menu.svg'
         /> */}
     </Box>
 }

@@ -34,7 +34,7 @@ const GameHeader: FC = () => {
             }}
         >
         <img
-            src="/icons/headerIcon.svg"
+            src="icons/headerIcon.svg"
             alt=""
             width={30}
             height={30}
@@ -57,7 +57,7 @@ const GameHeader: FC = () => {
                 }}
             >
                 <img
-                    src="/icons/alert.svg"
+                    src="icons/alert.svg"
                     width={24}
                     height={24}
                 />
