@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <BrowserRouter basename="/pgs">
         <Routes>
           <Route path="/game" element={
             <GameLayout>
