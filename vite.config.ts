@@ -13,8 +13,8 @@ export default defineConfig({
           allow: ["../sdk", "./"],
       },
       port: 3000,
-      https: true,
-      host: 'localhost',
-      allowedHosts: ['localhost', 'acetest.site'],
+      https: false,
+      host: '0.0.0.0',
+      allowedHosts: ['127.0.0.1', 'acetest.site'],
   },
 });
