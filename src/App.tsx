@@ -1,6 +1,6 @@
 import { Theme, ThemeProvider } from '@mui/material';
 import { darkTheme, lightTheme } from './theme';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GameLayout from './layouts/GameLayout';
 import AppLayout from './layouts/AppLayout';
@@ -29,9 +29,13 @@ export default function App() {
     }
   }, [isDarkMode, setTheme])
 
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+});
+
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter basename="/pgs">
+      <BrowserRouter>
         <Routes>
           <Route path="/game" element={
             <GameLayout>

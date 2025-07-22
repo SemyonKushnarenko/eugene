@@ -12,6 +12,7 @@ import {
 import { OpenAPI } from "./api/generated";
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
 import './main.css';
+
 init();
 miniApp.mount.ifAvailable();
 miniApp.ready.ifAvailable();

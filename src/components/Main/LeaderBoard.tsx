@@ -18,6 +18,7 @@ const LeaderBoard: FC<ILeaderBoard> = ({isMain = false}) => {
         ? players.slice(0, 3)
         : players.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
     const handleChange = (newPage: number) => {
+        window.scrollTo(0, 0)
         setSearchParams({ ...Object.fromEntries(searchParams.entries()), page: String(newPage) });
     };
     return <Box
@@ -151,11 +152,14 @@ const LeaderBoard: FC<ILeaderBoard> = ({isMain = false}) => {
                         width={isMain ? 64 : cup.startsWith('n') ? 24 : 84}
                         height={isMain ? 64 : cup.startsWith('n') ? 24 : 84}
                         alt=""
-                        src={`leaderboard/${cup}`}
+                        src={`/leaderboard/${cup}`}
                     />
                 </Box>
             )})}
             {isMain && <Link
+                onClick={() => {
+                    window.scrollTo(0, 0)
+                }}
                 to='leaderboard'
                 style={{
                     color: '#40434F',

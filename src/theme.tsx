@@ -11,7 +11,10 @@ export const lightTheme = createTheme({
     },
     success: {
       main: '#88041A',
-    }
+    },
+    background: {
+      default: '#0B0A0A',
+    },
   },
 });
 
@@ -26,6 +29,9 @@ export const darkTheme = createTheme({
     },
     success: {
       main: '#4A4C6B',
+    },
+    background: {
+      default: '#0B0A0A',
     },
   },
 });

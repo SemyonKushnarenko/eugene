@@ -4,7 +4,6 @@ import mkcert from 'vite-plugin-mkcert';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/pgs/",
   plugins: [
     react(),
     mkcert(),
@@ -14,8 +13,8 @@ export default defineConfig({
           allow: ["../sdk", "./"],
       },
       port: 3000,
-      https: false,
-      host: '0.0.0.0',
+      https: true,
+      host: 'localhost',
       allowedHosts: ['localhost', 'acetest.site'],
   },
 });

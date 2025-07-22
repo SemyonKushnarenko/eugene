@@ -2,11 +2,12 @@ import { Box, Typography } from "@mui/material";
 import { FC } from "react";
 import Timer from "../../components/Timer";
 import { useAtom, useAtomValue } from "jotai";
-import { canPlayAtom, timeAtom } from "../../store/gameAtoms";
+import { canPlayAtom, roundsAtom, timeAtom } from "../../store/gameAtoms";
 import { Link } from "react-router-dom";
 
 const GameHeader: FC = () => {
     const time = useAtomValue(timeAtom)
+    const rounds = useAtomValue(roundsAtom)
     const canPlay = useAtomValue(canPlayAtom)
 
     return <Box
@@ -24,6 +25,9 @@ const GameHeader: FC = () => {
         }}
     >
         <Link
+            onClick={() => {
+                window.scrollTo(0, 0)
+            }}
             to='/'
             style={{
                 position: "absolute",
@@ -45,9 +49,10 @@ const GameHeader: FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
+                ml: 'auto',
             }}
         >
-            <Box
+            {time >=0 && <Box
                 sx={{
                     display: "flex",
                     py: 1,
@@ -62,8 +67,8 @@ const GameHeader: FC = () => {
                     height={24}
                 />
                 <Timer seconds={time} />
-            </Box>
-            {/* <Box
+            </Box>}
+            {rounds > 1 && <><Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'column'
@@ -88,7 +93,7 @@ const GameHeader: FC = () => {
                         letterSpacing: 0,
                         textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
                     }}
-                >2 из 5</Typography>
+                >1 из {rounds}</Typography>
             </Box>
             <Box
                 sx={{
@@ -115,8 +120,8 @@ const GameHeader: FC = () => {
                         letterSpacing: 0,
                         textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
                     }}
-                >9999</Typography>
-            </Box> */}
+                >1000</Typography>
+            </Box></>}
         </Box>}
     </Box>
 } 

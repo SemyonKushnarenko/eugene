@@ -30,6 +30,9 @@ const AppFooter: FC = () => {
         }}
     >
         {links.map(({to, name}, id) => <Link
+            onClick={() => {
+                window.scrollTo(0, 0)
+            }}
             key={id}
             to={to}
             style={{
@@ -45,6 +48,9 @@ const AppFooter: FC = () => {
         >{name}</Link>)}
 
     <Link 
+        onClick={() => {
+            window.scrollTo(0, 0)
+        }}
         to='/'
         style={{
             textAlign: 'center',

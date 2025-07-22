@@ -66,7 +66,7 @@ const PanoramaV2: React.FC = () => {
                         width: '100vw',
                         height: '100vh',
                         overflow: 'hidden',
-                        background: '#000',
+                        // background: '#000', // убираем чёрный фон
                         touchAction: 'none',
                         userSelect: 'none',
                     }}
@@ -86,9 +86,38 @@ const PanoramaV2: React.FC = () => {
                             transition: dragStart ? 'none' : 'transform 0.1s',
                         }}
                     >
-                        <img src={TEXTURE} alt="panorama" style={{ width: imgWidth, height: '100vh', transform: 'translateX(2px)', objectFit: 'cover', flexShrink: 0 }} draggable={false} />
-                        <img src={TEXTURE} alt="panorama" style={{ width: imgWidth, height: '100vh', transform: 'translateX(1px)', objectFit: 'cover', flexShrink: 0 }} draggable={false} />
-                        <img src={TEXTURE} alt="panorama" style={{ width: imgWidth, height: '100vh', transform: 'translateX(0px)', objectFit: 'cover', flexShrink: 0 }} draggable={false} />
+                        {[2, 1, 0].map(i => (
+                            <div
+                                key={i}
+                                style={{
+                                    position: 'relative',
+                                    width: imgWidth,
+                                    height: '100vh',
+                                    flexShrink: 0,
+                                    overflow: 'hidden',
+                                    transform: `translateX(${0}px)`,
+                                }}
+                            >
+                                {/* Main image with feathered mask */}
+                                <img 
+                                    src={TEXTURE} 
+                                    alt="panorama" 
+                                    style={{ 
+                                        width: imgWidth, 
+                                        height: '100vh', 
+                                        objectFit: 'cover', 
+                                        display: 'block',
+                                        position: 'relative',
+                                        zIndex: 2,
+                                        pointerEvents: 'none',
+                                        userSelect: 'none',
+                                        // maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 8px, rgba(0,0,0,1) calc(100% - 8px), rgba(0,0,0,0) 100%)',
+                                        // WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 8px, rgba(0,0,0,1) calc(100% - 8px), rgba(0,0,0,0) 100%)',
+                                    }}
+                                    draggable={false}
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </TransformComponent>

@@ -60,6 +60,9 @@ const StartGame: FC = () => {
                 }}
             >
                 <Link 
+                    onClick={() => {
+                        window.scrollTo(0, 0)
+                    }}
                     to='/choose-game'
                     style={{
                         width: '100%',
