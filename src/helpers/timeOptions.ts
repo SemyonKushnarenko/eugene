@@ -32,4 +32,8 @@ export const timeOptions: ITimeOptions[] = [
         time: 3600,
         label: '60 минут',
     },
+    {
+        time: -1,
+        label: 'Без времени',
+    },
 ]

@@ -34,6 +34,9 @@ const AppHeader: FC = () => {
             src='/main_header.png'
         />
         {backLink && <Link
+            onClick={() => {
+                window.scrollTo(0, 0)
+            }}
             to={backLink}
             style={{
                 width: 40,

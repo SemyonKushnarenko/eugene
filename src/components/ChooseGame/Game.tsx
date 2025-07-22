@@ -11,6 +11,9 @@ const Game: FC<IGameProps> = ({game}) => {
     const { name, slug, icon, bg } = game;
 
     return <Link
+        onClick={() => {
+            window.scrollTo(0, 0)
+        }}
         to={slug}
         style={{
             boxSizing: "border-box",

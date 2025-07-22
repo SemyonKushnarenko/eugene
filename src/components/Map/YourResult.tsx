@@ -11,12 +11,20 @@ const YourResult: FC = () => {
     useEffect(() => {
         const necessaryTime = timeOptions.find(t => t.time === time)
         if (!necessaryTime) return;
+        if (necessaryTime.time < 0) return setTimeToShow('')
         const mins = Math.floor(necessaryTime.time/60)
         const secs = necessaryTime.time%60
         setTimeToShow(`${mins < 10 ? '0'+mins : mins}:${secs < 10 ? '0'+secs : secs}`)
     }, [time])
     const setCanPlay = useSetAtom(canPlayAtom)
     const setMark = useSetAtom(markAtom)
+    useEffect(() => {
+        return () => {
+            console.log('unmount')
+            setCanPlay(true);
+            setMark(null);
+        };
+    }, []);
     return <Box
         sx={{
             boxSizing: 'border-box',
@@ -86,7 +94,7 @@ const YourResult: FC = () => {
                     }}
                 >1200 баллов</Typography>
             </Box>
-            <Box
+            {timeToShow && <Box
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -110,7 +118,7 @@ const YourResult: FC = () => {
                         color: '#828289',
                     }}
                 >{timeToShow} мин</Typography>
-            </Box>
+            </Box>}
             <Box
                 sx={{
                     display: 'flex',
@@ -146,12 +154,11 @@ const YourResult: FC = () => {
                 textTransform: 'none',
                 p: '14px',
             }}
-            onClick={() => {
-                setCanPlay(true)
-                setMark(null)
-            }}
         >
             <Link
+                onClick={() => {
+                    window.scrollTo(0, 0)
+                }}
                 to='/choose-game'
                 style={{
                     width: '100%',
