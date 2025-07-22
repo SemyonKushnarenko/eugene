@@ -2,6 +2,8 @@ import { imageLoadedAtom } from '../../store/gameAtoms';
 import { useSetAtom } from 'jotai';
 import React, { useRef, useState, useEffect } from 'react';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+import './panorama.css'
+import { Box } from '@mui/material';
 
 const TEXTURE = 'texture.jpg';
 
@@ -86,38 +88,100 @@ const PanoramaV2: React.FC = () => {
                             transition: dragStart ? 'none' : 'transform 0.1s',
                         }}
                     >
-                        {[2, 1, 0].map(i => (
-                            <div
-                                key={i}
-                                style={{
-                                    position: 'relative',
-                                    width: imgWidth,
-                                    height: '100vh',
-                                    flexShrink: 0,
-                                    overflow: 'hidden',
-                                    transform: `translateX(${0}px)`,
-                                }}
-                            >
-                                {/* Main image with feathered mask */}
-                                <img 
-                                    src={TEXTURE} 
-                                    alt="panorama" 
-                                    style={{ 
-                                        width: imgWidth, 
-                                        height: '100vh', 
-                                        objectFit: 'cover', 
-                                        display: 'block',
-                                        position: 'relative',
-                                        zIndex: 2,
-                                        pointerEvents: 'none',
-                                        userSelect: 'none',
-                                        // maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 8px, rgba(0,0,0,1) calc(100% - 8px), rgba(0,0,0,0) 100%)',
-                                        // WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 8px, rgba(0,0,0,1) calc(100% - 8px), rgba(0,0,0,0) 100%)',
-                                    }}
-                                    draggable={false}
-                                />
-                            </div>
-                        ))}
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: 0,
+                                backdropFilter: 'blur(3px)',
+                                width: imgWidth*3, 
+                                height: '100vh', 
+                                display: 'block',
+                                zIndex: 2,
+                                pointerEvents: 'none',
+                                userSelect: 'none',
+                            }}
+                        >
+                        </Box>
+                        <img 
+                            className="image"
+                            src={TEXTURE} 
+                            alt="panorama" 
+                            style={{ 
+                                width: imgWidth, 
+                                height: '100vh', 
+                                objectFit: 'cover', 
+                                display: 'block',
+                                zIndex: 3,
+                                pointerEvents: 'none',
+                                userSelect: 'none',
+                            }}
+                            draggable={false}
+                        />
+                        <img 
+                            className="image"
+                            src={TEXTURE} 
+                            alt="panorama" 
+                            style={{ 
+                                width: imgWidth, 
+                                height: '100vh', 
+                                objectFit: 'cover', 
+                                display: 'block',
+                                zIndex: 3,
+                                pointerEvents: 'none',
+                                userSelect: 'none',
+                            }}
+                            draggable={false}
+                        />
+                        <img 
+                            className="image"
+                            src={TEXTURE} 
+                            alt="panorama" 
+                            style={{ 
+                                width: imgWidth, 
+                                height: '100vh', 
+                                objectFit: 'cover', 
+                                display: 'block',
+                                zIndex: 3,
+                                pointerEvents: 'none',
+                                userSelect: 'none',
+                            }}
+                            draggable={false}
+                        />
+                        <img 
+                            className="image-blured"
+                            src={TEXTURE} 
+                            alt="" 
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                width: imgWidth, 
+                                height: '100vh', 
+                                objectFit: 'cover', 
+                                display: 'block',
+                                zIndex: 1,
+                                pointerEvents: 'none',
+                                userSelect: 'none',
+                            }}
+                            draggable={false}
+                        />
+                        <img 
+                            className="image-blured"
+                            src={TEXTURE} 
+                            alt="" 
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: imgWidth,
+                                width: imgWidth, 
+                                height: '100vh', 
+                                objectFit: 'cover', 
+                                display: 'block',
+                                zIndex: 1,
+                                pointerEvents: 'none',
+                                userSelect: 'none',
+                            }}
+                            draggable={false}
+                        />
                     </div>
                 </div>
             </TransformComponent>
