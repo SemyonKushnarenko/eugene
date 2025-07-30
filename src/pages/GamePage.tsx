@@ -6,7 +6,7 @@ import TimeStop from '../components/Map/TimeStop';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './GamePageTransition.css';
 import { useEffect, useRef } from 'react';
-import { wait } from '../shared/utils/wait';
+import wait from "../shared/utils/wait";
 import Loader from '../components/Loader';
 
 const GamePage = () => {

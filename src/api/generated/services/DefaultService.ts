@@ -2,19 +2,19 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UserDTO } from '../models/UserDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class UserService {
+export class DefaultService {
     /**
-     * @returns UserDTO
+     * Ping
+     * @returns string Successful Response
      * @throws ApiError
      */
-    public static userGetTmaMe(): CancelablePromise<UserDTO> {
+    public static pingPingGet(): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/user/tma/me',
+            url: '/ping',
         });
     }
 }

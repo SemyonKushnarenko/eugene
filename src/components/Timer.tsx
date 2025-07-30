@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { canPlayAtom, loadingGameAtom } from "../store/gameAtoms";
 import { Typography } from "@mui/material";
+import formatTime from "../shared/utils/formatTime";
 
 interface TimerProps {
     seconds: number;
@@ -21,12 +22,6 @@ const Timer: FC<TimerProps> = ({ seconds }) => {
         const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
         return () => clearTimeout(timer);
     }, [timeLeft, setCanPlay, isLoading]);
-
-    const formatTime = (totalSeconds: number) => {
-        const minutes = Math.floor(totalSeconds / 60);
-        const seconds = totalSeconds % 60;
-        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    };
 
     return <Typography
         sx={{

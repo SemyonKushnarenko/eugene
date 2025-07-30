@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { games } from "../../../helpers/games";
+import { games, IGame } from "../../../helpers/games";
 
-function getGame(slug: string) {
-    return games.find(game => game.slug === slug)
+function getGame(slug: string): IGame | undefined {
+  return games.find((game) => game.slug === slug);
 }
 
 export const useGetGame = (slug: string) =>
