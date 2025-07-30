@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ErrorDTO = {
-    message: string;
-    code: number;
+export type LoginRequestModel = {
+    email: string;
+    password: string;
 };
 

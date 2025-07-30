@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "types:openapi": "openapi -i $API_URL -o src/api/generated",
-    "types:openapi:dev": "openapi -i http://localhost:3040/api-json -o src/api/generated"
+    "types:openapi:dev": "openapi -i http://77.238.235.94:15101/openapi.json -o src/api/generated"
   },
   "dependencies": {
     "@emotion/react": "latest",

@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { UserService } from "../../generated";
+import {
+  AuthorizationService,
+  UserRegisterRequestModel,
+} from "../../generated";
 
-export const useGetMe = () =>
-    useQuery({
-        queryKey: ["GET_ME"],
-        queryFn: () => UserService.userGetTmaMe(),
-        staleTime: 1000 * 60 * 5,
-    });
+export const useGetMe = (data: UserRegisterRequestModel) =>
+  useQuery({
+    queryKey: ["GET_ME"],
+    queryFn: () => AuthorizationService.telegramLoginAuthV1TelegramLoginPost(),
+    staleTime: 1000 * 60 * 5,
+  });

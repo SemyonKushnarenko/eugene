@@ -1,221 +1,257 @@
 import Game from "../components/ChooseGame/Game";
 import { Box, Button, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGetGame } from "../api/hooks/queries/use-get-game";
-import './GameParams.css'
-import { useAtom } from "jotai";
-import { roundsAtom, timeAtom } from "../store/gameAtoms";
+import "./GameParams.css";
+import { useAtom, useSetAtom } from "jotai";
+import { currentGameAtom, roundsAtom, timeAtom } from "../store/gameAtoms";
 import { timeOptions } from "../helpers/timeOptions";
 import { roundOptions } from "../helpers/roundOptions";
 
 const GameParamsPage: FC = () => {
-    const { slug } = useParams<{ slug: string }>();
-    const { data: game } = useGetGame(slug || "");
-    if (!slug) return null;
+  const { slug } = useParams<{ slug: string }>();
+  const { data: game } = useGetGame(slug || "");
+  if (!slug) return null;
 
-    const [time, setTime] = useAtom(timeAtom)
-    const [rounds, setRounds] = useAtom(roundsAtom)
+  const setCurrentGame = useSetAtom(currentGameAtom);
+  useEffect(() => {
+    setCurrentGame(game ?? null);
+  }, [game]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setTime(Number(e.target.value))
-    }
-    const handleChangeRounds = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setRounds(Number(e.target.value))
-    }
+  const [time, setTime] = useAtom(timeAtom);
+  const [rounds, setRounds] = useAtom(roundsAtom);
 
-    return <Box
-        sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexDirection: 'column',
-            width: '100%',
-            pt: '30px',
-        }}
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setTime(Number(e.target.value));
+  };
+  const handleChangeRounds = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRounds(Number(e.target.value));
+  };
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "column",
+        width: "100%",
+        pt: "30px",
+      }}
     >
-        {game && <Game game={game} />}
+      {game && <Game game={game} />}
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 2,
+          height: "48px",
+          mt: 3.5,
+          mb: 1.5,
+          // bgcolor: '#161413',
+          borderRadius: "20px",
+        }}
+      >
         <Box
-            sx={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 2,
-                height: '48px',
-                mt: 3.5,
-                mb: 1.5,
-                // bgcolor: '#161413',
-                borderRadius: '20px',
-            }}
+          sx={{
+            position: "relative",
+            flex: 1,
+          }}
         >
-            <select
-                style={{
-                    padding: '12px 16px',
-                    borderRadius: '16px',
-                    appearance: 'none',
-                    backgroundColor: '#201E1D',
-                    border: 'none',
-                    fontFamily: 'Gilroy',
-                    fontWeight: 500,
-                    fontSize: '17px',
-                    lineHeight: '17px',
-                    letterSpacing: 0,
-                    color: '#828289',
-                    position: 'relative',
-                    height: '100%',
-                    outline: 'none',
-                    flex: 1,
-                }}
-                className="select"
-                onChange={handleChange}
-                defaultValue={time}
-            >
-                <img
-                    style={{
-
-                    }}
-                    src='icons/alert.svg'
-                    alt=""
-                    width={24}
-                    height={24}
-                />
-                {timeOptions.map(option => 
-                    <option key={option.time} value={option.time}>{option.label}</option>
-                )}
-            </select>
-            <select
-                style={{
-                    padding: '12px 16px',
-                    borderRadius: '16px',
-                    appearance: 'none',
-                    backgroundColor: '#201E1D',
-                    border: 'none',
-                    flex: 1,
-                    fontFamily: 'Gilroy',
-                    fontWeight: 500,
-                    fontSize: '17px',
-                    lineHeight: '17px',
-                    letterSpacing: 0,
-                    color: '#828289',
-                    position: 'relative',
-                    height: '100%',
-                    outline: 'none',
-                }}
-                className="select"
-                onChange={handleChangeRounds}
-                defaultValue={rounds}
-            >
-                <img
-                    style={{
-
-                    }}
-                    src='/icons/alert.svg'
-                    alt=""
-                    width={24}
-                    height={24}
-                />
-                {roundOptions.map(option => 
-                    <option key={option.rounds} value={option.rounds}>{option.label}</option>
-                )}
-            </select>
+          <img
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "16px",
+              translate: "0 -50%",
+              zIndex: 10,
+            }}
+            src="/icons/alert_gray.svg"
+            alt=""
+            width={24}
+            height={24}
+          />
+          <select
+            style={{
+              padding: "12px 16px 12px 48px",
+              borderRadius: "16px",
+              appearance: "none",
+              backgroundColor: "#6C5DD333",
+              border: "none",
+              fontFamily: "Gilroy",
+              fontWeight: 500,
+              fontSize: "17px",
+              lineHeight: "17px",
+              letterSpacing: 0,
+              color: "#828289",
+              position: "relative",
+              height: "100%",
+              width: "100%",
+              outline: "none",
+            }}
+            className="select"
+            onChange={handleChange}
+            defaultValue={time}
+          >
+            {timeOptions.map((option) => (
+              <option key={option.time} value={option.time}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </Box>
-        <Button
-            sx={{
-                bgcolor: '#6C5DD3',
-                borderRadius: '16px',
-                py: '12px',
-                width: '100%',
-                zIndex: 15,
-                textTransform: 'none',
-            }}
-        >
-            <Link 
-                onClick={() => {
-                    window.scrollTo(0, 0)
-                }}
-                to='/game'
-                style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '4px',
-                    textDecoration: 'none',
-                    fontFamily: 'Gilroy',
-                    fontWeight: 600,
-                    fontSize: '14px',
-                    lineHeight: '20px',
-                    letterSpacing: 0,
-                    color: '#fff',
-                    verticalAlign: 'middle',
-                }}
-            >
-                Начать игру
-                <img
-                    src='/icons/arrowRight.svg'
-                    alt=''
-                />
-            </Link>
-        </Button>
         <Box
-            sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                mt: '20px',
-                gap: '10px',
-            }}
+          sx={{
+            position: "relative",
+            flex: 1,
+          }}
         >
-            <Typography
-                sx={{
-                    color: '#FFFFFF',
-                    fontFamily: 'Gilroy',
-                    fontWeight: 600,
-                    fontSize: '16px',
-                    lineHeight: 1.25,
-                    letterSpacing: 0,
-                    ml: 0.5,
-                }}
-            >Лучшие игры:</Typography>
-            <Box
-                sx={{
-                    height: 246,
-                    overflow: 'hidden',
-                    width: '100%',
-                    position: 'relative',
-                    bgcolor: '#6C5DD31A',
-                    borderRadius: '16px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <Typography
-                    sx={{
-                        color: '#828289',
-                        fontFamily: 'Gilroy',
-                        fontWeight: 500,
-                        fontSize: '15px',
-                        lineHeight: 1,
-                        letterSpacing: 0,
-                        textAlign: 'center',
-                    }}
-                >Начните играть, чтобы увидеть cтатистику</Typography>
-                <img
-                    style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: '50%',
-                        translate: '-50%'
-                    }}
-                    src='leaderboard/logo.svg'
-                    alt=''
-                />
-            </Box>
+          <img
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "16px",
+              translate: "0 -50%",
+              zIndex: 10,
+            }}
+            src="/icons/gamepad_gray.svg"
+            alt=""
+            width={24}
+            height={24}
+          />
+          <select
+            id="select1"
+            style={{
+              padding: "12px 16px 12px 48px",
+              borderRadius: "16px",
+              appearance: "none",
+              backgroundColor: "#6C5DD333",
+              border: "none",
+              width: "100%",
+              fontFamily: "Gilroy",
+              fontWeight: 500,
+              fontSize: "17px",
+              lineHeight: "17px",
+              letterSpacing: 0,
+              color: "#828289",
+              height: "100%",
+              outline: "none",
+            }}
+            className="select"
+            onChange={handleChangeRounds}
+            defaultValue={rounds}
+          >
+            {roundOptions.map((option) => (
+              <option key={option.rounds} value={option.rounds}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </Box>
+      </Box>
+      <Button
+        sx={{
+          bgcolor: "#6C5DD3",
+          borderRadius: "16px",
+          py: "12px",
+          width: "100%",
+          zIndex: 15,
+          textTransform: "none",
+        }}
+      >
+        <Link
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          to="/game"
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "4px",
+            textDecoration: "none",
+            fontFamily: "Gilroy",
+            fontWeight: 600,
+            fontSize: "14px",
+            lineHeight: "20px",
+            letterSpacing: 0,
+            color: "#fff",
+            verticalAlign: "middle",
+          }}
+        >
+          Начать игру
+          <img src="/icons/arrowRight.svg" alt="" />
+        </Link>
+      </Button>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          mt: "20px",
+          gap: "10px",
+        }}
+      >
+        <Typography
+          sx={{
+            color: "#FFFFFF",
+            fontFamily: "Gilroy",
+            fontWeight: 600,
+            fontSize: "16px",
+            lineHeight: 1.25,
+            letterSpacing: 0,
+            ml: 0.5,
+          }}
+        >
+          Лучшие игры:
+        </Typography>
+        <Box
+          sx={{
+            height: 246,
+            overflow: "hidden",
+            width: "100%",
+            position: "relative",
+            bgcolor: "#6C5DD31A",
+            borderRadius: "16px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            sx={{
+              color: "#828289",
+              fontFamily: "Gilroy",
+              fontWeight: 500,
+              fontSize: "15px",
+              lineHeight: 1,
+              letterSpacing: 0,
+              textAlign: "center",
+            }}
+          >
+            Начните играть, чтобы увидеть cтатистику
+          </Typography>
+          <img
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: "50%",
+              translate: "-50%",
+            }}
+            width={343}
+            height={343}
+            src="/leaderboard/logo.svg"
+            alt=""
+          />
+        </Box>
+      </Box>
     </Box>
-}
+  );
+};
 
 export default GameParamsPage;
